@@ -1,0 +1,259 @@
+iso3,name,continent,region_un,value
+ABW,Aruba,North America,Americas,80.00
+AFG,Afghanistan,Asia,Asia,99.00
+AGO,Angola,Africa,Africa,60.00
+AIA,Anguilla,North America,Americas,60.00
+ALA,Aland,Europe,Europe,70.00
+ALB,Albania,Europe,Europe,40.00
+AND,Andorra,Europe,Europe,59.00
+ARE,United Arab Emirates,Asia,Asia,74.00
+ARG,Argentina,South America,Americas,88.00
+ARM,Armenia,Asia,Asia,71.00
+ASM,American Samoa,Oceania,Oceania,74.00
+ATA,Antarctica,Antarctica,Antarctica,55.00
+ATC,Ashmore and Cartier Islands,Oceania,Oceania,90.00
+ATF,French Southern and Antarctic Lands,Seven seas (open ocean),Africa,91.00
+ATG,Antigua and Barbuda,North America,Americas,44.00
+AUS,Australia,Oceania,Oceania,48.00
+AUT,Austria,Europe,Europe,64.00
+AZE,Azerbaijan,Asia,Asia,83.00
+BDI,Burundi,Africa,Africa,75.00
+BEL,Belgium,Europe,Europe,52.00
+BEN,Benin,Africa,Africa,87.00
+BFA,Burkina Faso,Africa,Africa,95.00
+BGD,Bangladesh,Asia,Asia,99.00
+BGR,Bulgaria,Europe,Europe,73.00
+BHR,Bahrain,Asia,Asia,57.00
+BHS,The Bahamas,North America,Americas,61.00
+BIH,Bosnia and Herzegovina,Europe,Europe,53.00
+BJN,Bajo Nuevo Bank (Petrel Is.),North America,Americas,66.00
+BLM,Saint Barthelemy,North America,Americas,98.00
+BLR,Belarus,Europe,Europe,61.00
+BLZ,Belize,North America,Americas,68.00
+BMU,Bermuda,North America,Americas,73.00
+BOL,Bolivia,South America,Americas,55.00
+BRA,Brazil,South America,Americas,96.00
+BRB,Barbados,North America,Americas,78.00
+BRI,Brazilian Island,South America,Americas,65.00
+BRN,Brunei,Asia,Asia,57.00
+BRT,Bir Tawil,Africa,Africa,49.00
+BTN,Bhutan,Asia,Asia,74.00
+BWA,Botswana,Africa,Africa,64.00
+CAF,Central African Republic,Africa,Africa,46.00
+CAN,Canada,North America,Americas,59.00
+CHE,Switzerland,Europe,Europe,42.00
+CHL,Chile,South America,Americas,60.00
+CHN,China,Asia,Asia,78.00
+CIV,Ivory Coast,Africa,Africa,50.00
+CLP,Clipperton Island,Seven seas (open ocean),Americas,76.00
+CMR,Cameroon,Africa,Africa,81.00
+CNM,Cyprus No Mans Area,Asia,Asia,51.00
+COD,Democratic Republic of the Congo,Africa,Africa,40.00
+COG,Republic of the Congo,Africa,Africa,44.00
+COK,Cook Islands,Oceania,Oceania,65.00
+COL,Colombia,South America,Americas,66.00
+COM,Comoros,Africa,Africa,65.00
+CPV,Cabo Verde,Africa,Africa,52.00
+CRI,Costa Rica,North America,Americas,91.00
+CSI,Coral Sea Islands,Oceania,Oceania,93.00
+CUB,Cuba,North America,Americas,85.00
+CUW,Curaçao,North America,Americas,53.00
+CYM,Cayman Islands,North America,Americas,46.00
+CYN,Northern Cyprus,Asia,Asia,47.00
+CYP,Cyprus,Asia,Asia,59.00
+CZE,Czechia,Europe,Europe,87.00
+DEU,Germany,Europe,Europe,95.00
+DJI,Djibouti,Africa,Africa,66.00
+DMA,Dominica,North America,Americas,82.00
+DNK,Denmark,Europe,Europe,89.00
+DOM,Dominican Republic,North America,Americas,53.00
+DZA,Algeria,Africa,Africa,61.00
+ECU,Ecuador,South America,Americas,98.00
+EGY,Egypt,Africa,Africa,48.00
+ERI,Eritrea,Africa,Africa,99.00
+ESB,Dhekelia Sovereign Base Area,Asia,Asia,81.00
+ESH,Western Sahara,Africa,Africa,58.00
+ESP,Spain,Europe,Europe,69.00
+EST,Estonia,Europe,Europe,79.00
+ETH,Ethiopia,Africa,Africa,98.00
+FIN,Finland,Europe,Europe,92.00
+FJI,Fiji,Oceania,Oceania,79.00
+FLK,Falkland Islands,South America,Americas,98.00
+FRA,France,Europe,Europe,73.00
+FRO,Faroe Islands,Europe,Europe,74.00
+FSM,Federated States of Micronesia,Oceania,Oceania,99.00
+GAB,Gabon,Africa,Africa,70.00
+GBR,United Kingdom,Europe,Europe,44.00
+GEO,Georgia,Asia,Asia,82.00
+GGY,Guernsey,Europe,Europe,62.00
+GHA,Ghana,Africa,Africa,95.00
+GIB,Gibraltar,Europe,Europe,56.00
+GIN,Guinea,Africa,Africa,75.00
+GMB,Gambia,Africa,Africa,57.00
+GNB,Guinea-Bissau,Africa,Africa,44.00
+GNQ,Equatorial Guinea,Africa,Africa,58.00
+GRC,Greece,Europe,Europe,82.00
+GRD,Grenada,North America,Americas,86.00
+GRL,Greenland,North America,Americas,64.00
+GTM,Guatemala,North America,Americas,93.00
+GUM,Guam,Oceania,Oceania,95.00
+GUY,Guyana,South America,Americas,65.00
+HKG,Hong Kong S.A.R.,Asia,Asia,97.00
+HMD,Heard Island and McDonald Islands,Seven seas (open ocean),Africa,98.00
+HND,Honduras,North America,Americas,67.00
+HRV,Croatia,Europe,Europe,65.00
+HTI,Haiti,North America,Americas,44.00
+HUN,Hungary,Europe,Europe,79.00
+IDN,Indonesia,Asia,Asia,89.00
+IMN,Isle of Man,Europe,Europe,53.00
+IND,India,Asia,Asia,50.00
+IOA,Indian Ocean Territories,Asia,Africa,89.00
+IOT,British Indian Ocean Territory,Seven seas (open ocean),Africa,45.00
+IRL,Ireland,Europe,Europe,55.00
+IRN,Iran,Asia,Asia,95.00
+IRQ,Iraq,Asia,Asia,91.00
+ISL,Iceland,Europe,Europe,66.00
+ISR,Israel,Asia,Asia,45.00
+ITA,Italy,Europe,Europe,49.00
+JAM,Jamaica,North America,Americas,97.00
+JEY,Jersey,Europe,Europe,84.00
+JOR,Jordan,Asia,Asia,80.00
+JPN,Japan,Asia,Asia,87.00
+KAB,Baykonur Cosmodrome,Asia,Asia,79.00
+KAS,Siachen Glacier,Asia,Asia,98.00
+KAZ,Kazakhstan,Asia,Asia,83.00
+KEN,Kenya,Africa,Africa,91.00
+KGZ,Kyrgyzstan,Asia,Asia,69.00
+KHM,Cambodia,Asia,Asia,59.00
+KIR,Kiribati,Oceania,Oceania,61.00
+KNA,Saint Kitts and Nevis,North America,Americas,98.00
+KOR,South Korea,Asia,Asia,64.00
+KOS,Kosovo,Europe,Europe,70.00
+KWT,Kuwait,Asia,Asia,48.00
+LAO,Laos,Asia,Asia,95.00
+LBN,Lebanon,Asia,Asia,45.00
+LBR,Liberia,Africa,Africa,47.00
+LBY,Libya,Africa,Africa,41.00
+LCA,Saint Lucia,North America,Americas,45.00
+LIE,Liechtenstein,Europe,Europe,81.00
+LKA,Sri Lanka,Asia,Asia,65.00
+LSO,Lesotho,Africa,Africa,60.00
+LTU,Lithuania,Europe,Europe,85.00
+LUX,Luxembourg,Europe,Europe,69.00
+LVA,Latvia,Europe,Europe,55.00
+MAC,Macao S.A.R,Asia,Asia,95.00
+MAF,Saint Martin,North America,Americas,89.00
+MAR,Morocco,Africa,Africa,74.00
+MCO,Monaco,Europe,Europe,50.00
+MDA,Moldova,Europe,Europe,90.00
+MDG,Madagascar,Africa,Africa,66.00
+MDV,Maldives,Seven seas (open ocean),Asia,79.00
+MEX,Mexico,North America,Americas,68.00
+MHL,Marshall Islands,Oceania,Oceania,67.00
+MKD,North Macedonia,Europe,Europe,91.00
+MLI,Mali,Africa,Africa,55.00
+MLT,Malta,Europe,Europe,41.00
+MMR,Myanmar,Asia,Asia,46.00
+MNE,Montenegro,Europe,Europe,64.00
+MNG,Mongolia,Asia,Asia,95.00
+MNP,Northern Mariana Islands,Oceania,Oceania,58.00
+MOZ,Mozambique,Africa,Africa,72.00
+MRT,Mauritania,Africa,Africa,56.00
+MSR,Montserrat,North America,Americas,75.00
+MUS,Mauritius,Seven seas (open ocean),Africa,53.00
+MWI,Malawi,Africa,Africa,63.00
+MYS,Malaysia,Asia,Asia,68.00
+NAM,Namibia,Africa,Africa,54.00
+NCL,New Caledonia,Oceania,Oceania,72.00
+NER,Niger,Africa,Africa,46.00
+NFK,Norfolk Island,Oceania,Oceania,56.00
+NGA,Nigeria,Africa,Africa,71.00
+NIC,Nicaragua,North America,Americas,99.00
+NIU,Niue,Oceania,Oceania,65.00
+NLD,Netherlands,Europe,Europe,66.00
+NOR,Norway,Europe,Europe,56.00
+NPL,Nepal,Asia,Asia,97.00
+NRU,Nauru,Oceania,Oceania,65.00
+NZL,New Zealand,Oceania,Oceania,90.00
+OMN,Oman,Asia,Asia,94.00
+PAK,Pakistan,Asia,Asia,97.00
+PAN,Panama,North America,Americas,98.00
+PCN,Pitcairn Islands,Oceania,Oceania,71.00
+PER,Peru,South America,Americas,93.00
+PGA,Spratly Islands,Asia,Asia,88.00
+PHL,Philippines,Asia,Asia,97.00
+PLW,Palau,Oceania,Oceania,61.00
+PNG,Papua New Guinea,Oceania,Oceania,92.00
+POL,Poland,Europe,Europe,73.00
+PRI,Puerto Rico,North America,Americas,89.00
+PRK,North Korea,Asia,Asia,79.00
+PRT,Portugal,Europe,Europe,89.00
+PRY,Paraguay,South America,Americas,72.00
+PSE,Palestine,Asia,Asia,69.00
+PYF,French Polynesia,Oceania,Oceania,88.00
+QAT,Qatar,Asia,Asia,67.00
+ROU,Romania,Europe,Europe,90.00
+RUS,Russia,Europe,Europe,78.00
+RWA,Rwanda,Africa,Africa,50.00
+SAU,Saudi Arabia,Asia,Asia,68.00
+SCR,Scarborough Reef,Asia,Asia,43.00
+SDN,Sudan,Africa,Africa,90.00
+SEN,Senegal,Africa,Africa,97.00
+SER,Serranilla Bank,North America,Americas,69.00
+SGP,Singapore,Asia,Asia,48.00
+SGS,South Georgia and the Islands,Seven seas (open ocean),Americas,58.00
+SHN,Saint Helena,Seven seas (open ocean),Africa,57.00
+SLB,Solomon Islands,Oceania,Oceania,67.00
+SLE,Sierra Leone,Africa,Africa,89.00
+SLV,El Salvador,North America,Americas,81.00
+SMR,San Marino,Europe,Europe,89.00
+SOL,Somaliland,Africa,Africa,58.00
+SOM,Somalia,Africa,Africa,78.00
+SPI,Southern Patagonian Ice Field,South America,Americas,66.00
+SPM,Saint Pierre and Miquelon,North America,Americas,91.00
+SRB,Republic of Serbia,Europe,Europe,99.00
+SSD,South Sudan,Africa,Africa,77.00
+STP,São Tomé and Principe,Africa,Africa,65.00
+SUR,Suriname,South America,Americas,65.00
+SVK,Slovakia,Europe,Europe,85.00
+SVN,Slovenia,Europe,Europe,82.00
+SWE,Sweden,Europe,Europe,89.00
+SWZ,eSwatini,Africa,Africa,78.00
+SXM,Sint Maarten,North America,Americas,66.00
+SYC,Seychelles,Seven seas (open ocean),Africa,85.00
+SYR,Syria,Asia,Asia,77.00
+TCA,Turks and Caicos Islands,North America,Americas,77.00
+TCD,Chad,Africa,Africa,93.00
+TGO,Togo,Africa,Africa,93.00
+THA,Thailand,Asia,Asia,44.00
+TJK,Tajikistan,Asia,Asia,90.00
+TKM,Turkmenistan,Asia,Asia,56.00
+TLS,East Timor,Asia,Asia,94.00
+TON,Tonga,Oceania,Oceania,61.00
+TTO,Trinidad and Tobago,North America,Americas,99.00
+TUN,Tunisia,Africa,Africa,80.00
+TUR,Turkey,Asia,Asia,84.00
+TUV,Tuvalu,Oceania,Oceania,51.00
+TWN,Taiwan,Asia,Asia,80.00
+TZA,United Republic of Tanzania,Africa,Africa,64.00
+UGA,Uganda,Africa,Africa,42.00
+UKR,Ukraine,Europe,Europe,56.00
+UMI,United States Minor Outlying Islands,North America,Oceania,66.00
+URY,Uruguay,South America,Americas,88.00
+USA,United States of America,North America,Americas,86.00
+USG,US Naval Base Guantanamo Bay,North America,Americas,97.00
+UZB,Uzbekistan,Asia,Asia,88.00
+VAT,Vatican,Europe,Europe,98.00
+VCT,Saint Vincent and the Grenadines,North America,Americas,82.00
+VEN,Venezuela,South America,Americas,75.00
+VGB,British Virgin Islands,North America,Americas,65.00
+VIR,United States Virgin Islands,North America,Americas,62.00
+VNM,Vietnam,Asia,Asia,81.00
+VUT,Vanuatu,Oceania,Oceania,72.00
+WLF,Wallis and Futuna,Oceania,Oceania,52.00
+WSB,Akrotiri Sovereign Base Area,Asia,Asia,44.00
+WSM,Samoa,Oceania,Oceania,84.00
+YEM,Yemen,Asia,Asia,70.00
+ZAF,South Africa,Africa,Africa,72.00
+ZMB,Zambia,Africa,Africa,98.00
+ZWE,Zimbabwe,Africa,Africa,65.00
