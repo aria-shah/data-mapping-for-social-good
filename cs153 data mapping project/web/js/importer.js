@@ -118,7 +118,7 @@ async function render(modal, result, meta, resolve, onFollowLink) {
     grid.innerHTML = '';
     const table = h('table', {},
       h('thead', {}, h('tr', {}, t.headers.map((hd) => h('th', { class: `role-${role(hd)}` }, hd)))),
-      h('tbody', {}, t.rows.slice(0, 14).map((r) => h('tr', {}, t.headers.map((hd, i) => h('td', { class: `role-${role(hd)}` }, r[i] ?? ''))))));
+      h('tbody', {}, t.rows.slice(0, 14).map((r) => h('tr', {}, t.headers.map((hd, i) => h('td', { class: `role-${role(hd)}`, title: String(r[i] ?? '').length > 28 ? r[i] : null }, r[i] ?? ''))))));
     grid.append(table);
   }
 
