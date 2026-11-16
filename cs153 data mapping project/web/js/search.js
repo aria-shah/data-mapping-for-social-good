@@ -37,7 +37,7 @@ export function runSearch(q) {
     const url = /^https?:/i.test(q) ? q : 'https://' + q;
     pane.append(h('div', { class: 'scrape-cta' },
       h('div', { class: 'scrape-icon' }, '🕸️'),
-      h('div', {}, h('div', { class: 'scrape-title' }, 'Scrape this page for data'), h('div', { class: 'muted ellipsis' }, url)),
+      h('div', { style: { minWidth: 0 } }, h('div', { class: 'scrape-title' }, 'Scrape this page for data'), h('div', { class: 'muted scrape-url' }, url)),
       h('button', { class: 'btn-primary sm', onclick: () => opts.onScrape(url) }, 'Scrape')));
     return;
   }
@@ -109,7 +109,7 @@ function resultCard(r) {
   } else if (r.source === 'wiki') {
     actions.append(h('button', { class: 'btn-primary sm', onclick: () => opts.onScrape(r.url, { title: r.title }) }, '🕸️ Scrape tables'));
   } else if (r.source === 'hdx') {
-    const files = h('div', { class: 'files' }, (r.resources || []).map((f) => h('button', { class: 'file', onclick: () => opts.onScrape(f.url, { title: r.title }) }, h('span', { class: `kind kind-${f.format}` }, f.format), h('span', { class: 'ellipsis' }, f.name))));
+    const files = h('div', { class: 'files' }, (r.resources || []).map((f) => h('button', { class: 'file', onclick: () => opts.onScrape(f.url, { title: r.title }) }, h('span', { class: `kind kind-${f.format}` }, f.format), h('span', { class: 'file-name', title: f.name }, f.name))));
     actions.append(h('button', { class: 'btn-ghost sm', onclick: () => card.classList.toggle('open') }, `${(r.resources || []).length} files ▾`));
     card.append(actions, files);
     return card;
@@ -142,7 +142,7 @@ export function renderHome() {
   const sdgRow = h('div', { class: 'sdg-grid' }, SDGS.slice(1).map((g) => h('button', {
     class: `sdg-tile ${sdgFilter === g.n ? 'active' : ''} ${sdgFilter && sdgFilter !== g.n ? 'faded' : ''}`, style: { background: g.color }, title: g.name,
     onclick: () => { sdgFilter = sdgFilter === g.n ? null : g.n; renderHome(); },
-  }, h('b', {}, g.n), h('span', {}, g.name))));
+  }, h('b', {}, g.n), h('span', {}, g.short || g.name))));
   const items = CATALOG.filter((c) => !sdgFilter || c.sdg.includes(sdgFilter));
   pane.append(
     h('div', { class: 'section-title' }, 'Explore by Sustainable Development Goal', sdgFilter ? h('button', { class: 'link', onclick: () => { sdgFilter = null; renderHome(); } }, 'show all') : null),

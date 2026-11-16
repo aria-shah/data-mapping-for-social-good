@@ -10,15 +10,15 @@ export const SDGS = [
   { n: 6, name: 'Clean Water', color: '#26BDE2' },
   { n: 7, name: 'Clean Energy', color: '#FCC30B' },
   { n: 8, name: 'Decent Work', color: '#A21942' },
-  { n: 9, name: 'Innovation', color: '#FD6925' },
-  { n: 10, name: 'Reduced Inequalities', color: '#DD1367' },
-  { n: 11, name: 'Sustainable Cities', color: '#FD9D24' },
-  { n: 12, name: 'Responsible Consumption', color: '#BF8B2E' },
+  { n: 9, name: 'Industry & Innovation', short: 'Industry', color: '#FD6925' },
+  { n: 10, name: 'Reduced Inequalities', short: 'Less Inequality', color: '#DD1367' },
+  { n: 11, name: 'Sustainable Cities', short: 'Cities', color: '#FD9D24' },
+  { n: 12, name: 'Responsible Consumption', short: 'Consume Wisely', color: '#BF8B2E' },
   { n: 13, name: 'Climate Action', color: '#3F7E44' },
-  { n: 14, name: 'Life Below Water', color: '#0A97D9' },
+  { n: 14, name: 'Life Below Water', short: 'Ocean Life', color: '#0A97D9' },
   { n: 15, name: 'Life on Land', color: '#56C02B' },
   { n: 16, name: 'Peace & Justice', color: '#00689D' },
-  { n: 17, name: 'Partnerships', color: '#19486A' },
+  { n: 17, name: 'Partnerships', short: 'Partners', color: '#19486A' },
 ];
 
 // hib = higher is better (true), worse (false) or neutral (null). Drives palette choice and story wording.

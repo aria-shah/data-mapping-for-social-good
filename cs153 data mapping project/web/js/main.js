@@ -1,5 +1,5 @@
 // Common Ground Atlas: application state and orchestration.
-import { $, $$, h, esc, api, fmt, fmtPeople, flagEmoji, debounce, toast, busy, download } from './util.js';
+import { $, $$, h, esc, api, fmt, fmtPeople, flagEmoji, debounce, toast, busy, download, uid } from './util.js';
 import { loadGeo, countryGazetteer, admin1Gazetteer } from './geo.js';
 import { buildScale, defaultPalette, paletteCss, PALETTES, bivariateScale, BIVARIATE_VIVID } from './palettes.js';
 import { CATALOG, QUICK_START, SDGS, findCatalog } from './catalog.js';
@@ -195,8 +195,9 @@ function renderLegend(L, legend, slice) {
 function renderTimeline() {
   const box = $('#timeline');
   const L = activeLayer();
-  if (!L || !L.years || L.years.length < 2) { box.classList.remove('show'); stopPlay(); return; }
+  if (!L || !L.years || L.years.length < 2) { box.classList.remove('show'); document.body.classList.remove('has-timeline'); stopPlay(); return; }
   box.classList.add('show');
+  document.body.classList.add('has-timeline');
   const years = L.years;
   const counts = years.map((y) => Object.values(L.values).filter((v) => v[y] != null).length);
   const maxC = Math.max(...counts);
@@ -213,6 +214,7 @@ function renderTimeline() {
     h('div', { class: 'tl-opts' },
       h('button', { class: `chip ${state.year == null ? 'on' : ''}`, onclick: () => { state.year = null; stopPlay(); renderAll(); } }, 'Latest'),
       h('label', { class: 'check sm', title: 'Use the most recent value from up to 3 earlier years when a year is missing' }, h('input', { type: 'checkbox', checked: state.fillGaps, onchange: (e) => { state.fillGaps = e.target.checked; renderAll(); } }), h('span', {}, 'Fill gaps'))));
+  document.body.style.setProperty('--tl-h', `${box.offsetHeight || 64}px`);
 }
 
 function startPlay() {
@@ -502,6 +504,7 @@ async function scrape(url, meta = {}) {
 
 async function importFile(file) {
   if (file.size > 40 * 1024 * 1024) return toast('That file is over 40 MB.', 'bad');
+  if (/\.json$/i.test(file.name) && await restoreWorkspace(file)) return;
   const done = busy(`Reading ${file.name}…`);
   try {
     const res = await api('/api/parse', { method: 'POST', headers: { 'X-Filename': encodeURIComponent(file.name), 'Content-Type': file.type || 'application/octet-stream' }, body: file });
@@ -513,6 +516,19 @@ async function importFile(file) {
   } finally {
     done();
   }
+}
+
+// A file written by "Save workspace" brings back all of its layers instead of going through the importer.
+async function restoreWorkspace(file) {
+  let ws;
+  try { ws = JSON.parse(await file.text()); } catch { return false; }
+  if (!ws || ws.v !== 2 || !Array.isArray(ws.layers)) return false;
+  const layers = ws.layers.filter((l) => l && l.id && l.style && (l.values || l.points));
+  if (!layers.length) { toast('That workspace has no layers.', 'bad'); return true; }
+  for (const l of layers) if (state.layers.some((x) => x.id === l.id)) l.id = uid();
+  addLayers(layers, { quiet: true });
+  toast(`Restored workspace · ${layers.length} layer${layers.length > 1 ? 's' : ''}`, 'good');
+  return true;
 }
 
 async function importText(text) {
@@ -646,6 +662,8 @@ function togglePanel(side, force) {
 }
 
 function updatePadding() {
+  const tb = $('#topbar');
+  document.documentElement.style.setProperty('--topbar-h', `${tb.offsetTop + tb.offsetHeight}px`);
   if (!flat?.map) return;
   const narrow = innerWidth < 900;
   const pw = $('#left').offsetWidth + 28;
@@ -684,9 +702,13 @@ const persist = debounce(() => {
 
 async function restore() {
   const hash = new URLSearchParams(location.hash.slice(1));
-  if (hash.get('data')) {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch { saved = null; }
+  const refs = hash.get('data') ? hash.get('data').split(',').map(decodeURIComponent) : [];
+  // A reload keeps the hash this session wrote; only a link to other data replaces the saved workspace (which may hold uploads).
+  const savedRefs = new Set((saved?.layers || []).map((l) => l.ref));
+  if (refs.length && !refs.every((r) => savedRefs.has(r))) {
     if (hash.get('view')) state.view = hash.get('view');
-    const refs = hash.get('data').split(',').map(decodeURIComponent);
     $('#hero').classList.add('gone');
     for (const r of refs) {
       const [src, ...rest] = r.split(':');
@@ -694,8 +716,6 @@ async function restore() {
     }
     return true;
   }
-  let saved;
-  try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch { saved = null; }
   if (!saved) return false;
   Object.assign(state, { view: saved.view || 'globe', theme: saved.theme || 'dark', basemap: saved.basemap || 'none', texture: saved.texture || 'midnight', heightScale: saved.heightScale || 1, heightBy: saved.heightBy || 'same', pointStyle: saved.pointStyle || 'dots' });
   const full = (saved.layers || []).filter((l) => !l.refOnly);
@@ -718,12 +738,32 @@ function renderHero() {
     h('div', { class: 'hero-kicker' }, h('span', { class: 'live-dot' }), 'Open data · 17 Sustainable Development Goals'),
     h('h1', {}, 'See where the world ', h('span', { class: 'grad' }, 'needs help most'), '.'),
     h('p', {}, 'Search thousands of public datasets, scrape any web table, or drop in your own spreadsheet. Map it in 3D, find the gaps, and share the story.'),
+    heroSearch(),
+    h('div', { class: 'hero-or' }, 'or start with a featured dataset'),
     h('div', { class: 'hero-quick' }, quick.map((c) => h('button', { class: 'hero-chip', style: { '--sdg': SDGS[c.sdg[0]].color }, onclick: () => addFromSource(c.source, c.id) }, h('span', {}, c.icon), c.title))),
     h('div', { class: 'hero-actions' },
-      h('button', { class: 'btn-primary lg', onclick: () => { $('#search').focus(); } }, '🔎 Search datasets'),
       h('button', { class: 'btn-ghost lg', onclick: () => { setTab('import'); $('#hero').classList.add('gone'); } }, '⬆ Upload or scrape'),
       h('button', { class: 'btn-ghost lg', onclick: () => $('#hero').classList.add('gone') }, 'Just explore')),
     h('div', { class: 'hero-sdgs' }, SDGS.slice(1).map((g) => h('i', { style: { background: g.color }, title: `SDG ${g.n}: ${g.name}` })))));
+}
+
+// The hero has its own search field; submitting it hands off to the main search and Discover pane.
+function heroSearch() {
+  const input = h('input', { type: 'search', class: 'hero-input', placeholder: 'Search 10,000+ datasets: clean water, refugees, malaria…', 'aria-label': 'Search datasets', autocomplete: 'off', spellcheck: 'false' });
+  const go = (q) => {
+    q = (q ?? input.value).trim();
+    if (!q) return input.focus();
+    $('#search').value = q;
+    $('#hero').classList.add('gone');
+    setTab('discover');
+    if (!document.body.classList.contains('left-open')) $('#left-toggle').click();
+    runSearch(q);
+  };
+  const form = h('form', { class: 'hero-search', onsubmit: (e) => { e.preventDefault(); go(); } },
+    h('span', { class: 'search-icon', 'aria-hidden': 'true' }, '⌕'), input,
+    h('button', { type: 'submit', class: 'btn-primary' }, 'Search'));
+  const ideas = h('div', { class: 'hero-ideas' }, 'Try:', ['clean water', 'refugees', 'girls education', 'malaria', 'air pollution'].map((q) => h('button', { type: 'button', class: 'link', onclick: () => go(q) }, q)));
+  return [form, ideas];
 }
 
 function wireImportPane() {
