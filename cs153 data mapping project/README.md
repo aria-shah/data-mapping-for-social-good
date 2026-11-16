@@ -1,4 +1,56 @@
-# CS 153 — Data Mapping Project
+# CS 153 — Common Ground Atlas (Data Mapping Project)
+
+**Common Ground Atlas** is a data-mapping studio for social good: search thousands of open datasets, scrape tables from any web page, upload your own spreadsheet, and explore it on a 3D globe, a flat map, or an extruded 3D map, with auto-written findings about where need is greatest.
+
+**Maintaining this README:** When you change behavior, file layout, CLI flags, or dependencies, update this document in the same change so it stays accurate.
+
+## Quick start (v2 — recommended)
+
+```bash
+python3 atlas.py                         # opens http://127.0.0.1:8765
+python3 atlas.py sample_countries.csv    # preload files as layers
+python3 atlas.py --port 9000 --no-open
+```
+
+No `pip install` needed: the server is Python standard library only (tested on Python 3.14). The browser loads d3, MapLibre GL and globe.gl from public CDNs, so an internet connection is required.
+
+### What it does
+
+| Area | Features |
+|------|----------|
+| **Find data** | Federated search across the World Bank (≈1,500 WDI indicators), Our World in Data (7,000+ charts, from its sitemap), the Humanitarian Data Exchange (HDX), and Wikipedia list pages. Results stream in per source. 31 curated datasets organized by the 17 UN Sustainable Development Goals, plus live feeds (USGS earthquakes, NASA EONET natural events) and bundled sample CSVs. |
+| **Bring data** | Upload or drag-and-drop CSV, TSV, Excel (.xlsx), JSON or GeoJSON; paste from a spreadsheet; or paste any URL to scrape every HTML table on the page, plus links to CSV/XLSX/JSON files it references. |
+| **Import wizard** | Auto-detects the location, year, value and lat/lon columns, wide "one column per year" tables, and "higher is better/worse". Shows a live match meter with unmatched names and a color-coded preview. Matches 250 countries in many spellings (World Bank, UN and colloquial names, ISO2/ISO3) and 4,500+ states/provinces (ISO 3166-2, names, postal codes, with country disambiguation). |
+| **Visualize** | 3D globe (extruded values, pulsing rings on benchmark-flagged places, point spikes, Midnight, Night-lights or Blue-marble surface); flat map (minimal, dark, light or satellite basemap; dots or heatmap for points); 3D extruded map. 17 palettes; quantile, natural-breaks, equal or continuous classes; auto log scale; height driven by a second layer; 3×3 bivariate color map; animated timeline. |
+| **Insights** | KPIs, an auto-written plain-language story, benchmark with people-affected counts (Natural Earth population), distribution histogram, top/bottom rankings, continent strip plot, trend band, correlation scatter with r, and a region card with ranks and sparklines for every layer. |
+| **Share** | Poster PNG (1920×1080 with legend and findings), printable HTML impact brief, merged CSV, share links (`#data=wb:SP.DYN.LE00.IN,...`), workspace JSON. The workspace is saved in localStorage. |
+
+Keyboard: `/` search · `1` `2` `3` globe/map/3D map · `Space` play timeline · `←` `→` step years · `Esc` close.
+
+### Architecture (v2)
+
+| File | Role |
+|------|------|
+| `atlas.py` | Threaded HTTP server and JSON API. `/api/geo/*` serves simplified, gzipped Natural Earth boundaries (cached in `.atlas_cache/`). `/api/search` runs the federated search. `/api/fetch` fetches World Bank, OWID, HDX, URL or sample data as tables. `/api/parse` parses uploads. `/api/warm` prefetches featured indicators. URL fetches block private/loopback addresses, including on redirects. World Bank requests that take longer than ~18 s return the latest values first; the full series lands in the cache and the browser upgrades the layer automatically. |
+| `web/index.html`, `web/css/atlas.css` | App shell and visual system (dark/light themes). |
+| `web/js/main.js` | State, year slicing, rendering orchestration, layers panel, region card, persistence, share links. |
+| `web/js/geo.js` / `table.js` | Gazetteers and matching; number parsing, column detection, table → layers. |
+| `web/js/map2d.js` / `globe.js` | MapLibre flat/3D map; globe.gl globe. |
+| `web/js/insights.js`, `search.js`, `importer.js`, `export.js`, `palettes.js`, `catalog.js` | Insights and story, Discover panel, import wizard, exports, color scales, curated SDG catalog. |
+
+### Notes and limitations
+
+- `world_FULL_all_countries_map_ready.csv` contains synthetic values (e.g. Afghanistan life expectancy 82.8), so it is not offered in the catalog. Don't use it for real findings.
+- Natural Earth boundaries are shown as published and do not imply endorsement. Very small states may lack a polygon at globe resolution.
+- Scraping works on public pages with real `<table>` markup. Pages that build tables with JavaScript won't expose them.
+- Correlation shown in the app is descriptive, not causal.
+
+---
+
+# Legacy app (v1): `data-mapping.py`
+
+The original Folium-based generator is kept for reference. It requires `pip install pandas folium matplotlib numpy`. The rest of this document describes v1.
+
 
 **Data Mapper** turns location-based CSVs into an interactive choropleth or point map with search, layered datasets, insights, and export tools. It is built for social-impact work: comparing regions, spotting disparities, and sharing findings in reports or grant proposals.
 
