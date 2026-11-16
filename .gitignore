@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+# Boundary/API caches (rebuilt or re-downloaded automatically)
+.atlas_cache/
+.ne_*_cache.json
+.subnational_*_cache.json
+.world_countries_cache.json

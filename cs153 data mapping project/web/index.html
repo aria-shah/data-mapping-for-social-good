@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Common Ground Atlas</title>
+  <meta name="description" content="Map open data for social good: search thousands of datasets, scrape web tables, upload your own, and explore them on a 3D globe.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='.5' stop-color='%2338bdf8'/%3E%3Cstop offset='1' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='28' fill='url(%23g)'/%3E%3Cpath d='M10 30c10-6 18 4 26-2s14-2 18 2M12 42c10-4 16 2 24-1s12-2 16 0' stroke='%23fff' stroke-width='3.5' fill='none' stroke-linecap='round' opacity='.85'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="css/atlas.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.34.4/dist/globe.gl.min.js"></script>
+</head>
+<body class="left-open right-open">
+  <div id="stage">
+    <div id="sky"></div>
+    <div id="globe" class="view on"></div>
+    <div id="flat" class="view"></div>
+  </div>
+
+  <header id="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div class="brand-name">Common Ground</div>
+        <div class="brand-sub">Data atlas for social good</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search datasets (e.g. clean water, girls' education) or paste a link…" aria-label="Search datasets">
+      <kbd>/</kbd>
+    </div>
+    <div class="seg view-seg" id="view-seg" role="tablist" aria-label="View">
+      <button data-view="globe" class="active" title="3D globe (1)">🌐 Globe</button>
+      <button data-view="map" title="Flat map (2)">🗺️ Map</button>
+      <button data-view="tilt" title="3D extruded map (3)">🏙️ 3D Map</button>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="rotate-btn" title="Auto-rotate globe">⟳</button>
+      <button class="icon-btn" id="reset-btn" title="Reset view">⌖</button>
+      <div class="menu-wrap">
+        <button class="btn-ghost" id="export-btn">Share & export ▾</button>
+        <div class="menu" id="export-menu">
+          <button id="export-png"><b>🖼️ Poster image (PNG)</b><span>Map, legend and key findings, 1920×1080</span></button>
+          <button id="export-brief"><b>📄 Impact brief</b><span>Printable HTML report with findings & rankings</span></button>
+          <button id="export-csv"><b>📊 Data (CSV)</b><span>All visible layers merged by place</span></button>
+          <button id="export-link"><b>🔗 Copy share link</b><span>Reopens these datasets and view</span></button>
+          <button id="export-session"><b>💾 Save workspace (JSON)</b><span>Everything, including uploads</span></button>
+        </div>
+      </div>
+      <button class="icon-btn" id="theme-btn" title="Toggle light/dark">☀︎</button>
+      <button class="icon-btn" id="about-btn" title="About">?</button>
+    </div>
+  </header>
+
+  <aside id="left" class="panel">
+    <nav id="tabs" class="tabs">
+      <button data-tab="discover" id="tab-discover" class="active">✦ Discover</button>
+      <button data-tab="import" id="tab-import">⬆ Import</button>
+      <button data-tab="layers" id="tab-layers">◧ Layers <span class="count"></span></button>
+    </nav>
+    <div class="panes">
+      <section class="pane on" id="pane-discover"></section>
+      <section class="pane" id="pane-import"></section>
+      <section class="pane" id="pane-layers"></section>
+    </div>
+    <button class="panel-toggle" id="left-toggle" aria-label="Toggle left panel">‹</button>
+  </aside>
+
+  <aside id="right" class="panel">
+    <div id="insights"></div>
+    <button class="panel-toggle" id="right-toggle" aria-label="Toggle insights panel">›</button>
+  </aside>
+
+  <div id="legend" class="glass"></div>
+  <div id="timeline" class="glass"></div>
+  <div id="region-card" class="glass"></div>
+  <div id="hero"></div>
+  <div id="tooltip"></div>
+
+  <div id="importer" class="modal" role="dialog" aria-modal="true" aria-label="Import data"><div class="importer-box glass"></div></div>
+
+  <div id="about" class="modal" role="dialog" aria-modal="true" aria-label="About">
+    <div class="about-box glass">
+      <button class="icon-btn close" data-close aria-label="Close">✕</button>
+      <div class="hero-kicker">About</div>
+      <h2>Common Ground Atlas</h2>
+      <p>A studio for turning open data into maps that make inequality visible, so students, advocates, NGOs and policymakers can see where help is needed most.</p>
+      <div class="about-grid">
+        <div><h4>Find data</h4><p>Federated search across the World Bank (1,500 indicators), Our World in Data (7,000+ charts), the Humanitarian Data Exchange and Wikipedia, plus 30 curated datasets organized by the UN Sustainable Development Goals.</p></div>
+        <div><h4>Bring data</h4><p>Upload CSV, Excel or JSON, paste from a spreadsheet, or scrape any public web page. Places are matched automatically: 250 countries and 4,500+ states/provinces in many spellings.</p></div>
+        <div><h4>See it</h4><p>3D globe with extruded values and pulsing priority areas, flat and 3D maps, bivariate color, heatmaps, and an animated timeline.</p></div>
+        <div><h4>Act on it</h4><p>Benchmarks with people-affected counts, auto-written findings, rankings, correlations, poster PNGs and printable impact briefs.</p></div>
+      </div>
+      <h4>Keyboard</h4>
+      <p class="kbds"><kbd>/</kbd> search · <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> globe / map / 3D map · <kbd>Space</kbd> play timeline · <kbd>←</kbd> <kbd>→</kbd> step years · <kbd>Esc</kbd> close</p>
+      <p class="muted small">Boundaries: Natural Earth (public domain). Country boundaries are shown as published by Natural Earth and do not imply endorsement. Data belongs to its publishers; check methodology and recency before citing. Correlation is not causation.</p>
+    </div>
+  </div>
+
+  <div id="toasts" aria-live="polite"></div>
+  <div id="busy"><div class="busy-bar"></div><div class="busy-pill"><span class="spinner sm"></span><span id="busy-label">Loading…</span></div></div>
+  <div id="dropveil"><div><div class="drop-icon big">⬆</div>Drop to import your data</div></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
